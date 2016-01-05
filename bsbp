@@ -2,14 +2,15 @@
 # BASH3 Boilerplate
 #
 # This file:
-#  - Is a template to write better bash scripts
+#  - Is the base for a template to write better bash scripts
 #  - Is delete-key friendly, in case you don't need e.g. command line option parsing
 #
 # More info:
+#  - https://github.com/arathai/bash3boilerplate
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
-# Version 1.0.0
+# Version 2.0.0
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
@@ -21,6 +22,7 @@
 #
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
+# Copyright (c) 2015 Matteo Sasso (matteo.sasso@gmail.com)
 # Copyright (c) 2016 Alexander Rathai (Alexander.Rathai@gmail.com)
 
 
