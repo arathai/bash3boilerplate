@@ -14,12 +14,14 @@
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
 #  - Matteo Sasso (matteo.sasso@gmail.com)
+#  - Alexander Rathai (Alexander.Rathai@gmail.com)
 #
 # Usage:
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
 #
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
+# Copyright (c) 2016 Alexander Rathai (Alexander.Rathai@gmail.com)
 
 
 
@@ -38,7 +40,6 @@ set -o pipefail
 
 shopt -s nullglob
 shopt -s extglob
-shopt -s globstar
 shopt -u sourcepath
 
 trap _cleanup EXIT
@@ -98,7 +99,7 @@ function help () {
   echo "" 1>&2
   echo " ${@}" 1>&2
   echo "" 1>&2
-  echo "  ${usage}" 1>&2
+  echo "  ${arguments}" 1>&2
   echo "" 1>&2
   exit 1
 }
@@ -126,7 +127,7 @@ while read line; do
     opt="${opt}:" # add : if opt has arg
     init=""  # it has an arg. init with ""
   fi
-  opts="${opts}${opt}"
+  opts="${opts:-}${opt}"
 
   varname="arg_${opt:0:1}"
   if ! echo "${line}" |egrep '\. Default=' >/dev/null 2>&1; then
@@ -149,8 +150,8 @@ while getopts "${opts}" opt; do
   varname="arg_${opt:0:1}"
   default="${!varname}"
 
-  value="${OPTARG}"
-  if [ -z "${OPTARG}" ] && [ "${default}" = "0" ]; then
+  value="${OPTARG:-}"
+  if [ -z "${OPTARG:-}" ] && [ "${default}" = "0" ]; then
     value="1"
   fi
 
@@ -160,7 +161,7 @@ done
 
 shift $((OPTIND-1))
 
-[ "$1" = "--" ] && shift
+[ $# -gt 0 ] && [ "$1" = "--" ] && shift
 
 
 ### Switches (like -d for debugmode, -h for showing helppage)

@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-### Bash Script Boilerplate
-#####################################################################
-
-source /usr/local/bin/bsbp
-
 ### Configuration
 #####################################################################
 
@@ -13,12 +8,17 @@ LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 
 # Commandline options. This defines the usage page, and is used to parse cli
 # opts & defaults from. The parsing is unforgiving so be precise in your syntax
-arguments <<-'EOF'
+read -r -d '' arguments <<-'EOF'
   -f   [arg] Filename to process. Required.
   -t   [arg] Location of tempfile. Default="/tmp/bar"
   -d         Enables debug mode
   -h         This page
 EOF
+
+### Bash Script Boilerplate
+#####################################################################
+
+source ~/bin/bsbp
 
 
 ### Validation (decide what's required for running your script and error out)
@@ -26,4 +26,7 @@ EOF
 
 [ -z "${arg_f}" ]     && help      "Setting a filename with -f is required"
 [ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without LOG_LEVEL. "
+
+### Runtime
+#####################################################################
 
